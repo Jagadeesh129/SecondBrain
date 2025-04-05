@@ -10,7 +10,7 @@ const tagSchema = new Schema({
     title: {type: String, required: true, unique: true}
 })
 
-const contentTypes = ['image','video','article','audio'];
+const contentTypes = ['image','video','article','audio','youtube','twitter'];
 
 const contentSchema = new Schema({
     link: {type: String, required: true},

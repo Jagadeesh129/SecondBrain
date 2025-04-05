@@ -4,11 +4,13 @@ import setConnection from "./db";
 import { userRouter } from "./routes/user";
 import { contentRouter } from "./routes/content";
 import { brainRouter } from "./routes/brain";
+import cors from 'cors';
 
 dotenv.config();
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/content", contentRouter);

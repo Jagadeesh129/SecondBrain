@@ -10,7 +10,7 @@ export const userRouter = Router();
 const SECRETKEY = process.env.JWT_SECRET;
 
 userRouter.post('/signup', async (req, res) => {
-
+    try {
     // Input validation
     const requiredBody = z.object({
         username: z.string().min(3,"Minimum length is 3"),
@@ -26,7 +26,7 @@ userRouter.post('/signup', async (req, res) => {
 
     // validation is done, now proceed
     const { username, name, password } = req.body;
-    try {
+    
         const existedUser = await UserModel.findOne({ username: username });
         console.log(existedUser);
         if (existedUser!=null) {

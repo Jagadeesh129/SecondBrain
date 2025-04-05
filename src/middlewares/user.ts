@@ -10,8 +10,8 @@ export interface AuthRequest extends Request {
 const SECRETKEY = process.env.JWT_SECRET;
 
 export const userMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {
-    const token = req.headers.token;
     try {
+        const token = req.headers.token;
         if (!token || typeof token != "string" || !SECRETKEY) {
             res.status(401).json({ message: "No token provided, authorization denied" });
             return;

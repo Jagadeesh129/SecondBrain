@@ -7,14 +7,15 @@ import { TagModel } from "../schema";
 export const contentRouter = Router();
 
 contentRouter.post('', userMiddleware, async (req, res) => {
-    const userId = (req as AuthRequest).userId;
-    const { type, link, title, tags } = req.body;
 
     try {
-        const existingTags = await TagModel.find({ title: { $in: tags } });
+        const userId = (req as AuthRequest).userId;
+        const { type, link, title, tags } = req.body;
+        const tagArray = Array.isArray(tags) ? tags : [];
+        const existingTags = await TagModel.find({ title: { $in: tagArray } });
 
         const existingTagTitles = new Set(existingTags.map(tag => tag.title));
-        const missingTags = tags.filter((tag:any)=> !existingTagTitles.has(tag));
+        const missingTags = tagArray.filter((tag:any)=> !existingTagTitles.has(tag));
 
         let newTags: any = [];
         if (missingTags.length > 0) {
